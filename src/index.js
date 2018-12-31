@@ -19,12 +19,16 @@ document.addEventListener('submit', event => {
   event.preventDefault()
   const username = document.querySelector('#username').value
   findOrCreateUser(username)
-  startDuel(username)
 })
 
-// fetch('http://localhost:3000/api/v1/duels')
-// .then( response => response.json() )
-// .then( console.log )
+document.addEventListener('click', event => {
+  if (event.target.id === 'duel-button') {
+    startDuel(event.target.dataset.id)
+  }
+  else if (event.target.className === 'spell-button') {
+    castSpell()
+  }
+})
 
 
 
