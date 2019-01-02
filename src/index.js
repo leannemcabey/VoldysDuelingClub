@@ -22,7 +22,7 @@ document.addEventListener('submit', event => {
 })
 
 document.addEventListener('click', event => {
-  if (event.target.id === 'duel-button') {
+  if (event.target.className === 'duel-button') {
     startDuel(event.target.dataset.id)
   }
   else if (event.target.className === 'spell-button') {

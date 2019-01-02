@@ -21,10 +21,13 @@ function startDuel(userId) {
     const spellNames = getSpells().map( spell => `<button class='spell-button' data-id='${spell.rank}'> ${spell.name} </button>` ).join('')
     mainDiv.innerHTML = `
       <div data-id='duel-${parsedResult.id}'>
+        <div id='wins'>
+          ${activeUser.username}'s Wins: ${getWins()}
+        </div>
         <div id='duel-round-message'>
         </div>
         <div>
-          <h4 id='dark-magic-meter'> Dark Magic Meter: ${darkMagicMeter} </h4>
+          <h4 id='dark-magic-meter'> Dark Magic Meter: ${darkMagicMeter}% </h4>
         </div>
         <div id='spells'>
           ${spellNames}

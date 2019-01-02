@@ -10,10 +10,7 @@ function findOrCreateUser(username) {
     if (usernames.includes(username)) {
       activeUser = parsedResult.find( user => user.username === username )
       document.querySelector('#header').innerHTML += `<button id='signout'> Sign Out </button>`
-      mainDiv.innerHTML = `
-        <h2> As you wish, ${username}... </h2>
-        <button id='duel-button' data-id='${activeUser.id}'> Begin Duel </button>
-      `
+      mainDiv.innerHTML = renderRulesPage()
     }
     else {
       fetch('http://localhost:3000/api/v1/users', {
@@ -29,13 +26,29 @@ function findOrCreateUser(username) {
       .then( result => result.json() )
       .then( parsedResult => {
         activeUser = parsedResult
-        mainDiv.innerHTML = `
-          <h2> As you wish, ${username}... </h2>
-          <button id='duel-button' data-id='${activeUser.id}'> Begin Duel </button>
-        `
+        mainDiv.innerHTML = renderRulesPage()
       })
     }
   })
+}
+
+function renderRulesPage() {
+  return `
+    <h2> As you wish, ${activeUser.username}... </h2>
+    <h4> The rules are simple. You and Voldy will each cast a spell.
+         Whomever's spell is trumped by the other will lose the number of
+         Health Points associated with the winning spell. Whoever runs out
+         of Health Points first loses. But beware of casting Unforgivable
+         Curses. The Dark Magic Meter will increase each time you do. If
+         it reaches 100%, you have sent the wizarding world into a terrible,
+         dark place, the game is over and you lose. If either of you cast
+         the Killing Curse, your duel will be short lived. </h4>
+    <button id='duel-button' data-id='${activeUser.id}'> Begin Duel </button>
+  `
+}
+
+function getWins() {
+  return activeUser.duels.filter( duel => duel.win === true ).length
 }
 
 function castSpell() {
@@ -55,7 +68,7 @@ function castSpell() {
     return ''
   }
   else if (unforgivables.includes(playerSpell.name)) {
-    playerCastUnforgivableResult(playerSpell, voldySpell)
+    return playerCastUnforgivableResult(playerSpell, voldySpell)
   }
   else if (playerSpell.rank < voldySpell.rank) {
     healthPoints.player = setWinnerPoints('player')
@@ -74,7 +87,7 @@ function castSpell() {
 }
 
 function playerCastUnforgivableResult(playerSpell, voldySpell) {
-  document.querySelector('#dark-magic-meter').innerHTML = `Dark Magic Meter: ${darkMagicMeter += 25}`
+  document.querySelector('#dark-magic-meter').innerHTML = `Dark Magic Meter: ${darkMagicMeter += 25}%`
 
   if (playerSpell.rank < voldySpell.rank) {
     healthPoints.player = setWinnerPoints('player')
@@ -88,6 +101,7 @@ function playerCastUnforgivableResult(playerSpell, voldySpell) {
     document.querySelector('#voldy-score').innerHTML = `Health Points: ${healthPoints.voldy}`
     document.querySelector('#player-score').innerHTML = `Health Points: ${healthPoints.player}`
   }
+
   return 'You cast an Unforgivable Curse! The Dark Magic Meter has gone up!'
 }
 
@@ -100,27 +114,47 @@ function alertGameStatus(message) {
 
   if (voldySpell.name === 'Avada Kedavra') {
     activeDuel.win = false
-    messageDiv.innerHTML = `<h2>RIP. Voldy cast the killing curse on you. Game Over.</h2>`
+    messageDiv.innerHTML = `
+      <h2>Game Over! Voldy cast the killing curse on you. RIP.</h2>
+      ${renderDuelOutcome()}
+    `
+    clearPreviousDuel()
     patchDuelOutcome()
   }
   else if (playerSpell.name === 'Avada Kedavra') {
     activeDuel.win = true
-    messageDiv.innerHTML = `<h1>Voldy is dead, but using the killing curse has compromised your soul.</h1>`
+    messageDiv.innerHTML = `
+      <h1>Game Over! Voldy is dead, but using the killing curse has compromised your soul.</h1>
+      ${renderDuelOutcome()}
+    `
+    clearPreviousDuel()
     patchDuelOutcome()
   }
   else if (darkMagicMeter >= 100) {
     activeDuel.win = false
-    messageDiv.innerHTML = `<h2> Game Over! The Dark Magic Meter has reached 100%. The wizarding world has been overtaken by Dark forces all thanks to you. </h2>`
+    messageDiv.innerHTML = `
+      <h2> Game Over! The Dark Magic Meter has reached 100%. The wizarding world has been overtaken by Dark forces all thanks to you. </h2>
+      ${renderDuelOutcome()}
+    `
+    clearPreviousDuel()
     patchDuelOutcome()
   }
   else if (healthPoints.player <= 0) {
     activeDuel.win = false
-    messageDiv.innerHTML = `<h2> Game Over! Voldy has beaten you. Sry. </h2>`
+    messageDiv.innerHTML = `
+      <h2> Game Over! Voldy has beaten you. Sry. </h2>
+      ${renderDuelOutcome()}
+    `
+    clearPreviousDuel()
     patchDuelOutcome()
   }
   else if (healthPoints.voldy <= 0) {
     activeDuel.win = true
-    messageDiv.innerHTML = `<h2> Game Over! You beat Voldy! Go celebrate with some butterbeer! </h2>`
+    messageDiv.innerHTML = `
+      <h2> Game Over! You beat Voldy! Go celebrate with some butterbeer! </h2>
+      ${renderDuelOutcome()}
+    `
+    clearPreviousDuel()
     patchDuelOutcome()
   }
   else {
@@ -135,17 +169,33 @@ function patchDuelOutcome() {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     },
-    body: JSON.stringify(activeDuel)
+    body: JSON.stringify({
+      win: activeDuel.win
+    })
   })
 }
 
+function renderDuelOutcome() {
+  return `
+    <h2> Final Duel Outcome: </h2>
+    <h3> ${activeUser.username}: ${healthPoints.player} </h3>
+    <h3> Voldy: ${healthPoints.voldy} </h3>
+    <h3> Dark Magic Meter: ${darkMagicMeter} </h3>
+    <button class='duel-button' data-id=${activeUser.id}> Start a New Duel </button>
+  `
+}
+
 function clearPreviousDuel() {
-  
+  healthPoints.player = 7
+  healthPoints.voldy = 7
+  darkMagicMeter = 0
+
+  document.querySelector('#player-score').innerHTML = `Health Points: ${healthPoints.player}`
+  document.querySelector('#voldy-score').innerHTML = `Health Points: ${healthPoints.voldy}`
+  document.querySelector('#dark-magic-meter').innerHTML = `Dark Magic Meter: ${darkMagicMeter}%`
 }
 
 // change threshhold of dark magic meter to be easier to max out
-// add rules to page with begin duel button
-  // if dark magic meter maxes out, the player loses
 // add spell descriptions to buttons
 // add funny messages about what happened during each round.
   // maybe just use whoever won and describe what their spell did to the other?
