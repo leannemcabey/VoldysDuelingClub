@@ -26,10 +26,15 @@ document.addEventListener('click', event => {
     startDuel(event.target.dataset.id)
   }
   else if (event.target.className === 'spell-button') {
-    castSpell()
+    returnedMessage = castSpell()
+    alertGameStatus(returnedMessage)
+  }
+  else if (event.target.id === 'signout') {
+    activeUser = ''
+    document.querySelector('#header').innerHTML = `<h1> Voldy's Dueling Club </h1>`
+    renderWelcomeAndUserSignInForm()
   }
 })
-
 
 
 
