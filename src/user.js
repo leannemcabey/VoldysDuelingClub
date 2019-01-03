@@ -9,7 +9,8 @@ function findOrCreateUser(username) {
     const usernames = parsedResult.map( user => user.username )
     if (usernames.includes(username)) {
       activeUser = parsedResult.find( user => user.username === username )
-      document.querySelector('#header').innerHTML += `<button id='signout'> Sign Out </button>`
+      document.querySelector('#signout').style.display = 'inline'
+      // document.querySelector('#header').innerHTML += `<button class="ui positive basic button" id='signout'> Sign Out </button>`
       mainDiv.innerHTML = renderRulesPage()
     }
     else {
@@ -34,16 +35,18 @@ function findOrCreateUser(username) {
 
 function renderRulesPage() {
   return `
-    <h2> As you wish, ${activeUser.username}... </h2>
-    <h4> The rules are simple. You and Voldy will each cast a spell.
-         Whomever's spell is trumped by the other will lose the number of
-         Health Points associated with the winning spell. Whoever runs out
-         of Health Points first loses. But beware of casting Unforgivable
-         Curses. The Dark Magic Meter will increase each time you do. If
-         it reaches 100%, you have sent the wizarding world into a terrible,
-         dark place, the game is over and you lose. If either of you cast
-         the Killing Curse, your duel will be short lived. </h4>
-    <button id='duel-button' data-id='${activeUser.id}'> Begin Duel </button>
+    <div class="ui raised very padded text container segment">
+      <h2> As you wish, ${activeUser.username}... </h2>
+      <h4> The rules are simple. You and Voldy will each cast a spell.
+           Whomever's spell is trumped by the other will lose the number of
+           Health Points associated with the winning spell. Whoever runs out
+           of Health Points first loses. But beware of casting Unforgivable
+           Curses. The Dark Magic Meter will increase each time you do. If
+           it reaches 100%, you have sent the wizarding world into a terrible,
+           dark place, the game is over and you lose. If either of you cast
+           the Killing Curse, your duel will be short lived. </h4>
+      <button class="ui positive basic button" data-action='duel-button' data-id='${activeUser.id}'> Begin Duel </button>
+    </div>
   `
 }
 
@@ -181,7 +184,7 @@ function renderDuelOutcome() {
     <h3> ${activeUser.username}: ${healthPoints.player} </h3>
     <h3> Voldy: ${healthPoints.voldy} </h3>
     <h3> Dark Magic Meter: ${darkMagicMeter} </h3>
-    <button class='duel-button' data-id=${activeUser.id}> Start a New Duel </button>
+    <button class="ui positive basic button" data-action='duel-button' data-id=${activeUser.id}> Start a New Duel </button>
   `
 }
 

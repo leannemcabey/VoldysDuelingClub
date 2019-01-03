@@ -1,19 +1,33 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang='en' dir='ltr'>
   <head>
-    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel='stylesheet' href='stylesheets/application.css'>
+    <!-- <link href="https://fonts.googleapis.com/css?family=Rakkas" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Yatra+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"> -->
+    <meta charset='utf-8'>
     <title></title>
   </head>
-  <body>
-    <div id='header'>
-      <h1> Voldy's Dueling Club </h1>
-    </div>
-    <div id='main_div'>
+  <body id='body'>
+    <div id='wrapper-div'>
+      <div id='header' class="ui sizer vertical segment">
+        <button class="ui positive basic button" id='signout'> Sign Out </button>
+        <img src='images/snake_1f40d.png' id='snake-img'>
+        <h1 id='main-header' class="ui huge header"> Voldy's Dueling Club </h1>
+        <div id='voldy-gif-div'>
+          <!-- <img src="images/giphy.gif" class='voldy-gif'>
+          <img src="images/giphy.gif" class='voldy-gif'>
+          <img src="images/giphy.gif" class='voldy-gif'> -->
+        </div>
+      </div>
+      <div id='main_div'>
 
-    </div>
+      </div>
+  </div>
 
-    <script type="text/javascript" src='src/index.js'></script>
-    <script type="text/javascript" src='src/user.js'></script>
-    <script type="text/javascript" src='src/duel.js'></script>
+    <script type='text/javascript' src='src/index.js'></script>
+    <script type='text/javascript' src='src/user.js'></script>
+    <script type='text/javascript' src='src/duel.js'></script>
   </body>
 </html>
