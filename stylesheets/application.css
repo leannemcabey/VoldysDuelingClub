@@ -1,63 +1,112 @@
+* {
+    box-sizing: border-box
+}
+
 #body {
     background-image: url("../images/wand.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
-    color: black;
-    /* background-color: #eef4e8; */
   }
+
+#signout {
+  float: right;
+  /* position: fixed; */
+}
+
+#main-header {
+  color: white;
+  display: inline;
+  /* position: fixed; */
+}
+
+#snake-img {
+  height: 4em;
+  width: 3em;
+  display: inline;
+  /* position: fixed; */
+}
 
 .container {
   opacity: .7;
   text-align: center;
 }
 
-/* #page-1-container {
-  margin-top: 100
+/* .segment {
+  opacity: .7;
 } */
+
+#leaderboard {
+  color: white;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.spells {
+  display: block;
+  width: 100%;
+}
+
+#wins {
+  opacity: .7;
+  width: 20%;
+  float: right;
+}
+
+#dark-magic-meter {
+  color: #960106;
+}
+
+#duel-round-message {
+  color: green;
+  align-content: center;
+  text-align: center;
+  clear: both;
+  margin-bottom: 25px;
+  margin-top: 25px;
+  font-family: 'Homemade Apple', cursive;
+}
+
+#player-score {
+  float: right;
+  color: white;
+}
+
+#player-name {
+  color: #b2a4f2;
+  text-align: center;
+}
+
+#voldy-score {
+  float: right;
+  color: white;
+}
+
+#voldy-name {
+  color: #b2a4f2;
+  text-align: center;
+}
 
 #page-1-subheader {
   opacity: 1;
 }
 
-#main-header {
-  color: white;
-  display: inline;
+.image-blurred-edge {
+    background-image: url("../images/purpleflame.gif");
+    width: 272px;
+    height: 350px;
+    box-shadow: 50px 50px 50px 50px black;
+    color: white;
+    margin: auto;
 }
 
-#snake-img {
-  height: 3em;
-  width: 3em;
-}
-
-#signout {
-  float: right;
-}
-
-/* #header {
-  font-family: 'Yatra One', cursive;
-  font-weight: lighter;
-  font-size: 1em;
-  color: white;
-}
-
-#voldy-gif-div {
-  display: inline-block;
-  margin: 0 auto;
-}
-
-.voldy-gif {
-  width: 33%;
-  opacity: .35;
-}
-
-#main_div {
-  margin: 1em auto;
+.cast-spell-name {
+  margin: auto;
   text-align: center;
-  box-sizing: border-box;
-  width: 55%;
-  font-size: 2em;
-  color: white;
-  font-family: 'Rakkas', cursive;
-} */
+  padding: 110px 0;
+  font-family: 'Homemade Apple', cursive;
+  font-size: 20px;
+}
