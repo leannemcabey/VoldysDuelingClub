@@ -21,13 +21,12 @@ function startDuel(userId) {
     const spellNames = getSpells().map( spell => {
       return `
         <div>
-          <button class="ui inverted violet button spells" data-action='spell-button' data-id='${spell.rank}'> ${spell.name}
+          <button class="ui inverted violet button spells" id="spell-${spell.rank}" data-action='spell-button' data-id='${spell.rank}'> ${spell.name}
             <i id="info" class="info circle icon" data-id='${spell.rank}'></i>
           </button>
           <p class='spell-par' id='spell-${spell.rank}'><p>
         </div>
       `}).join('')
-    // `<div class='spell-div' id='spell-${spell.rank}'><button class="ui inverted violet button spells" data-action='spell-button' data-id='${spell.rank}'> ${spell.name} <i id="info" class="info circle icon" data-id='${spell.rank}'></i></button><p class="details"><p></div><br>` ).join('')
     mainDiv.innerHTML = `
       <div data-id='duel-${parsedResult.id}'>
         <div id='duel-round-message'>
@@ -63,23 +62,26 @@ function startDuel(userId) {
         </div>
       </div>
     `
+    document.querySelector('#spell-1').setAttribute("class", "ui inverted red button spells")
+    document.querySelector('#spell-2').setAttribute("class", "ui inverted red button spells")
+    document.querySelector('#spell-3').setAttribute("class", "ui inverted red button spells")
   })
 }
 
 function getSpells() {
   return [
-      {rank: 2, damage: 3, name: "Crucio", description: "Causes the opponent agonizing pain"},
       {rank: 12, damage: 1, name: "Confundo", description: "Causes confusion in the opponent"},
       {rank: 3, damage: 3, name: "Imperio", description: "Allows you to control the opponent's actions"},
       {rank: 8, damage: 1, name: "Petrificus Totalus", description: "Full body binding curse"},
       {rank: 5, damage: 2, name: "Expelliarmus", description: "Removes the wand from the opponent’s hand"},
-      {rank: 1, damage: 7, name: "Avada Kedavra", description: "Instantly kills the opponent"},
       {rank: 13, damage: 1, name: "Levicorpus", description: "Causes the opponent to hang upside-down in midair as if hoisted by the ankle"},
       {rank: 6, damage: 2, name: "Sectumsempra", description: "Slices the opponent, as if they are being cut by an invisible sword"},
+      {rank: 1, damage: 7, name: "Avada Kedavra", description: "Instantly kills the opponent"},
       {rank: 7, damage: 1, name: "Stupefy", description: "Stuns the opponent, rendering them unconscious"},
       {rank: 4, damage: 2, name: "Protego", description: "A shield charm that can fend off spells"},
       {rank: 10, damage: 1, name: "Incarcerous", description: "Conjures thick ropes that are used to bind the opponent"},
       {rank: 11, damage: 1, name: "Impedimenta", description: "Stops or slows down the opponent by temporarily immobilizing them"},
+      {rank: 2, damage: 3, name: "Crucio", description: "Causes the opponent agonizing pain"},
       {rank: 9, damage: 1, name: "Locomotor Mortis", description: "Binds the legs of the opponent together"}
   ]
 }
@@ -160,7 +162,7 @@ function renderDuelOutcome() {
     Voldy <i class="heartbeat icon"></i> ${healthPoints.voldy}
     </p>
     <p>
-    Dark Magic Meter<i class="thermometer half icon"></i>${darkMagicMeter}
+    Dark Magic Meter<i class="thermometer half icon"></i>${darkMagicMeter}%
     </p>
     <button class="ui positive basic button" data-action='duel-button' data-id=${activeUser.id}> Start a New Duel </button>
   `
