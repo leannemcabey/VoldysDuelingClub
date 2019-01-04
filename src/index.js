@@ -3,10 +3,12 @@ const mainDiv = document.querySelector('#main_div')
 function renderWelcomeAndUserSignInForm() {
   mainDiv.innerHTML = `
     <div id="page-1-container" class="ui raised very padded text container segment">
-      <p id='page-1-subheader' class="ui header"> Welcome to Voldy's Dueling Club, the happiest place on Earth.</p>
+      <p id='page-1-subheader' class="ui header"> Welcome to Voldy's Dueling Club</p>
       <p> If you think you have what it takes to duel with Voldy, enter your username below. </p>
       <form class="ui form">
         <input type=text id='username' class="field"> </input>
+        <br>
+        <br>
         <input type=submit class="ui positive basic button"> </input>
       </form>
     </div>

@@ -122,7 +122,7 @@ function endDuel() {
   messageDiv.innerHTML = `
     ${renderDuelOutcome()}
   `
-  
+
   window.scrollTo(0,0)
   document.querySelector('#dimmer-div').setAttribute('class','dimmer')
   document.querySelector('#dark-magic-meter').setAttribute('class','dimmer')
@@ -145,7 +145,7 @@ function patchDuelOutcome() {
     body: JSON.stringify({
       win: activeDuel.win
     })
-  })
+  }).then(renderLeaderboard)
 }
 
 function renderDuelOutcome() {
