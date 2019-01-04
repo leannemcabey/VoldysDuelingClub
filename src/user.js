@@ -95,7 +95,7 @@ function castSpell() {
 }
 
 function playerCastUnforgivableResult(playerSpell, voldySpell) {
-  document.querySelector('#dark-magic-meter').innerHTML = `Dark Magic Meter<i class="thermometer half icon"></i>${darkMagicMeter += 25}%`
+  document.querySelector('#dark-magic-meter').innerHTML = `Dark Magic Meter<i class="thermometer half icon"></i>${darkMagicMeter += 50}%`
 
   if (playerSpell.rank < voldySpell.rank) {
     healthPoints.player = setWinnerPoints('player')
