@@ -91,7 +91,7 @@ function castSpell() {
     return ''
   }
   else if (playerSpell.name === 'Avada Kedavra') {
-    darkMagicMeter = '100%'
+    darkMagicMeter = 100
     healthPoints.player = 0
     healthPoints.voldy = setLoserPoints('voldy', playerSpell.damage)
     document.querySelector('#voldy-score').innerHTML = `<i class="heartbeat icon"></i> ${healthPoints.voldy}`

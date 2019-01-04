@@ -33,7 +33,7 @@ function startDuel(userId) {
           Choose a spell below.
         </div>
         <div class="ui horizontal divider">
-          <h4 id='dark-magic-meter' class="ui medium header"> Dark Magic Meter<i class="thermometer half icon"></i>${darkMagicMeter}% </h4>
+          <h4 id='dark-magic-meter' class="ui medium header"> Dark Magic Meter<i class="thermometer empty icon"></i>${darkMagicMeter}% </h4>
         </div>
         <div id='dimmer-div'>
           <div class='ui grid'>
@@ -90,27 +90,27 @@ function alertGameStatus(message) {
 
   if (voldySpell.name === 'Avada Kedavra') {
     activeDuel.win = false
-    alert('Game Over! Voldy cast the killing curse on you. RIP.')
+    setTimeout(function(){ alert('Game Over! Voldy cast the killing curse on you. RIP.') }, 1000)
     endDuel()
   }
   else if (playerSpell.name === 'Avada Kedavra') {
     activeDuel.win = true
-    alert('Game Over! Voldy is dead, but using the killing curse has compromised your soul.')
+    setTimeout(function(){ alert('Game Over! Voldy is dead, but using the killing curse has compromised your soul.') }, 1000)
     endDuel()
   }
   else if (darkMagicMeter >= 100) {
     activeDuel.win = false
-    alert('Game Over! The Dark Magic Meter has reached 100%. The wizarding world has been overtaken by Dark forces all thanks to you.')
+    setTimeout(function(){ alert('Game Over! The Dark Magic Meter has reached 100%. The wizarding world has been overtaken by Dark forces all thanks to you.') }, 1000)
     endDuel()
   }
   else if (healthPoints.player <= 0) {
     activeDuel.win = false
-    alert('Game Over! Voldy has beaten you. Sry.')
+    setTimeout(function(){ alert('Game Over! Voldy has beaten you. Sry.') }, 1000)
     endDuel()
   }
   else if (healthPoints.voldy <= 0) {
     activeDuel.win = true
-    alert('Game Over! You beat Voldy! Go celebrate with some butterbeer!')
+    setTimeout(function(){ alert('Game Over! You beat Voldy! Go celebrate with some butterbeer!') }, 1000)
     endDuel()
   }
   else {
@@ -151,6 +151,18 @@ function patchDuelOutcome() {
 }
 
 function renderDuelOutcome() {
+  let meter
+
+  if (darkMagicMeter === 100) {
+    meter = `<i class="thermometer full icon"></i>`
+  }
+  else if (darkMagicMeter === 50) {
+    meter = `<i class="thermometer half icon"></i>`
+  }
+  else {
+    meter = `<i class="thermometer empty icon"></i>`
+  }
+
   return `
     <p id='outcome-title'>
     <i class="magic icon"></i> Final Duel Outcome:
@@ -162,7 +174,7 @@ function renderDuelOutcome() {
     Voldy <i class="heartbeat icon"></i> ${healthPoints.voldy}
     </p>
     <p>
-    Dark Magic Meter<i class="thermometer half icon"></i>${darkMagicMeter}%
+    Dark Magic Meter${meter}${darkMagicMeter}%
     </p>
     <button class="ui positive basic button" data-action='duel-button' data-id=${activeUser.id}> Start a New Duel </button>
   `
@@ -175,5 +187,5 @@ function clearPreviousDuel() {
 
   document.querySelector('#player-score').innerHTML = `<i class="heartbeat icon"></i> ${healthPoints.player}`
   document.querySelector('#voldy-score').innerHTML = `<i class="heartbeat icon"></i> ${healthPoints.voldy}`
-  document.querySelector('#dark-magic-meter').innerHTML = `Dark Magic Meter<i class="thermometer half icon"></i>${darkMagicMeter}%`
+  document.querySelector('#dark-magic-meter').innerHTML = `Dark Magic Meter<i class="thermometer empty icon"></i>${darkMagicMeter}%`
 }
