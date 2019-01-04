@@ -54,6 +54,8 @@ function renderLeaderboard() {
 renderWelcomeAndUserSignInForm()
 renderLeaderboard()
 
+let clicked = false
+
 document.addEventListener('submit', event => {
   event.preventDefault()
   const username = document.querySelector('#username').value
@@ -72,5 +74,17 @@ document.addEventListener('click', event => {
   else if (event.target.id === 'signout') {
     activeUser = ''
     renderWelcomeAndUserSignInForm()
+  }
+  else if (event.target.id === 'info') {
+    clicked = !clicked
+    let targetedSpell = getSpells().find( spell => spell.rank == event.target.dataset.id )
+    let targetedPTag = document.querySelector(`#spell-${event.target.dataset.id}`)
+
+    if (clicked) {
+      targetedPTag.innerHTML += `${targetedSpell.description}`
+    }
+    else {
+      targetedPTag.innerHTML = ''
+    }
   }
 })

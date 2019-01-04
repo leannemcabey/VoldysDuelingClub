@@ -18,35 +18,46 @@ function startDuel(userId) {
     activeDuel = parsedResult
     healthPoints = {player: 7, voldy: 7}
     darkMagicMeter = 0
-    const spellNames = getSpells().map( spell => `<button class="ui inverted violet button spells" data-action='spell-button' data-id='${spell.rank}'> ${spell.name} <i class="info circle icon"></i></button><br><br>` ).join('')
+    const spellNames = getSpells().map( spell => {
+      return `
+        <div>
+          <button class="ui inverted violet button spells" data-action='spell-button' data-id='${spell.rank}'> ${spell.name}
+            <i id="info" class="info circle icon" data-id='${spell.rank}'></i>
+          </button>
+          <p class='spell-par' id='spell-${spell.rank}'><p>
+        </div>
+      `}).join('')
+    // `<div class='spell-div' id='spell-${spell.rank}'><button class="ui inverted violet button spells" data-action='spell-button' data-id='${spell.rank}'> ${spell.name} <i id="info" class="info circle icon" data-id='${spell.rank}'></i></button><p class="details"><p></div><br>` ).join('')
     mainDiv.innerHTML = `
       <div data-id='duel-${parsedResult.id}'>
-        <div id='duel-round-message' class="ui small header">
+        <div id='duel-round-message'>
           Choose a spell below.
         </div>
         <div class="ui horizontal divider">
           <h4 id='dark-magic-meter' class="ui medium header"> Dark Magic Meter<i class="thermometer half icon"></i>${darkMagicMeter}% </h4>
         </div>
-        <div class='ui grid'>
-          <div id='leaderboard' class="four wide column ui medium header">
-            <p>Leaderboard:</p>
-            <ul>
-              ${wins}
-            <ul>
-          </div>
-          <div id='spells' class="four wide column">
-            ${spellNames}
-          </div>
-          <div id='player' class="four wide column" data-id='${userId}'>
-            <h4 id='player-score' class="ui large header"> <i class="heartbeat icon"></i> ${healthPoints.player} </h4>
-            <h3 class="ui large header" id='player-name'> ${activeUser.username} </h3>
-            <div id='player-spell' class="image-blurred-edge">
+        <div id='dimmer-div'>
+          <div class='ui grid'>
+            <div id='leaderboard' class="four wide column ui medium header">
+              <p>Leaderboard:</p>
+              <ul>
+                ${wins}
+              <ul>
             </div>
-          </div>
-          <div id='voldy' class="four wide column">
-            <h4 id='voldy-score' class="ui large header"> <i class="heartbeat icon"></i> ${healthPoints.voldy} </h4>
-            <h3 class="ui large header" id='voldy-name'> Voldy </h3>
-            <div id='voldy-spell' class="image-blurred-edge">
+            <div id='spells' class="four wide column">
+              ${spellNames}
+            </div>
+            <div id='player' class="four wide column" data-id='${userId}'>
+              <h4 id='player-score' class="ui large header"> <i class="heartbeat icon"></i> ${healthPoints.player} </h4>
+              <h3 class="ui large header" id='player-name'> ${activeUser.username} </h3>
+              <div id='player-spell' class="image-blurred-edge">
+              </div>
+            </div>
+            <div id='voldy' class="four wide column">
+              <h4 id='voldy-score' class="ui large header"> <i class="heartbeat icon"></i> ${healthPoints.voldy} </h4>
+              <h3 class="ui large header" id='voldy-name'> Voldy </h3>
+              <div id='voldy-spell' class="image-blurred-edge">
+              </div>
             </div>
           </div>
         </div>
@@ -63,7 +74,7 @@ function getSpells() {
       {rank: 8, damage: 1, name: "Petrificus Totalus", description: "Full body binding curse"},
       {rank: 5, damage: 2, name: "Expelliarmus", description: "Removes the wand from the opponent’s hand"},
       {rank: 1, damage: 7, name: "Avada Kedavra", description: "Instantly kills the opponent"},
-      {rank: 13, damage: 1, name: "Levicorpus", description: "Causes the opponent to hand upside-down in midair as if hoisted by the ankle"},
+      {rank: 13, damage: 1, name: "Levicorpus", description: "Causes the opponent to hang upside-down in midair as if hoisted by the ankle"},
       {rank: 6, damage: 2, name: "Sectumsempra", description: "Slices the opponent, as if they are being cut by an invisible sword"},
       {rank: 7, damage: 1, name: "Stupefy", description: "Stuns the opponent, rendering them unconscious"},
       {rank: 4, damage: 2, name: "Protego", description: "A shield charm that can fend off spells"},
@@ -74,62 +85,49 @@ function getSpells() {
 }
 
 function alertGameStatus(message) {
-  let messageDiv = document.querySelector('#duel-round-message')
 
   if (voldySpell.name === 'Avada Kedavra') {
     activeDuel.win = false
     alert('Game Over! Voldy cast the killing curse on you. RIP.')
-    messageDiv.innerHTML = `
-      ${renderDuelOutcome()}
-    `
-    window.scrollTo(0,0)
-    clearPreviousDuel()
-    patchDuelOutcome()
+    endDuel()
   }
   else if (playerSpell.name === 'Avada Kedavra') {
     activeDuel.win = true
     alert('Game Over! Voldy is dead, but using the killing curse has compromised your soul.')
-    messageDiv.innerHTML = `
-      ${renderDuelOutcome()}
-    `
-    window.scrollTo(0,0)
-    clearPreviousDuel()
-    patchDuelOutcome()
+    endDuel()
   }
   else if (darkMagicMeter >= 100) {
     activeDuel.win = false
     alert('Game Over! The Dark Magic Meter has reached 100%. The wizarding world has been overtaken by Dark forces all thanks to you.')
-    messageDiv.innerHTML = `
-      ${renderDuelOutcome()}
-    `
-    window.scrollTo(0,0)
-    clearPreviousDuel()
-    patchDuelOutcome()
+    endDuel()
   }
   else if (healthPoints.player <= 0) {
     activeDuel.win = false
     alert('Game Over! Voldy has beaten you. Sry.')
-    messageDiv.innerHTML = `
-      ${renderDuelOutcome()}
-    `
-    window.scrollTo(0,0)
-    clearPreviousDuel()
-    patchDuelOutcome()
+    endDuel()
   }
   else if (healthPoints.voldy <= 0) {
     activeDuel.win = true
     alert('Game Over! You beat Voldy! Go celebrate with some butterbeer!')
-    messageDiv.innerHTML = `
-      ${renderDuelOutcome()}
-    `
-    window.scrollTo(0,0)
-    clearPreviousDuel()
-    patchDuelOutcome()
+    endDuel()
   }
   else {
     setTimeout(alert(message), 3000)
-    // messageDiv.innerHTML = `<p> ${message} </p>`
   }
+}
+
+function endDuel() {
+  let messageDiv = document.querySelector('#duel-round-message')
+
+  messageDiv.innerHTML = `
+    ${renderDuelOutcome()}
+  `
+  
+  window.scrollTo(0,0)
+  document.querySelector('#dimmer-div').setAttribute('class','dimmer')
+  document.querySelector('#dark-magic-meter').setAttribute('class','dimmer')
+  clearPreviousDuel()
+  patchDuelOutcome()
 }
 
 function showSpell() {
@@ -152,10 +150,18 @@ function patchDuelOutcome() {
 
 function renderDuelOutcome() {
   return `
-    <h2> <i class="magic icon"></i> Final Duel Outcome: </h2>
-    <h3> ${activeUser.username} <i class="heartbeat icon"></i> ${healthPoints.player} </h3>
-    <h3> Voldy <i class="heartbeat icon"></i> ${healthPoints.voldy} </h3>
-    <h3> Dark Magic Meter:<i class="thermometer half icon"></i>${darkMagicMeter} </h3>
+    <p id='outcome-title'>
+    <i class="magic icon"></i> Final Duel Outcome:
+    </p>
+    </p>
+    ${activeUser.username} <i class="heartbeat icon"></i> ${healthPoints.player}
+    </p>
+    <p>
+    Voldy <i class="heartbeat icon"></i> ${healthPoints.voldy}
+    </p>
+    <p>
+    Dark Magic Meter<i class="thermometer half icon"></i>${darkMagicMeter}
+    </p>
     <button class="ui positive basic button" data-action='duel-button' data-id=${activeUser.id}> Start a New Duel </button>
   `
 }
@@ -167,5 +173,5 @@ function clearPreviousDuel() {
 
   document.querySelector('#player-score').innerHTML = `<i class="heartbeat icon"></i> ${healthPoints.player}`
   document.querySelector('#voldy-score').innerHTML = `<i class="heartbeat icon"></i> ${healthPoints.voldy}`
-  document.querySelector('#dark-magic-meter').innerHTML = `Dark Magic Meter:<i class="thermometer half icon"></i>${darkMagicMeter}%`
+  document.querySelector('#dark-magic-meter').innerHTML = `Dark Magic Meter<i class="thermometer half icon"></i>${darkMagicMeter}%`
 }

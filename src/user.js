@@ -34,14 +34,30 @@ function findOrCreateUser(username) {
   })
 }
 
+function voldyCastSpell() {
+  let allSpells = getSpells()
+  let topTier = getSpells().filter( spell => spell.damage > 2)
+  let middleTier = getSpells().filter( spell => spell.damage === 2)
+  let bottomTier = getSpells().filter( spell => spell.damage === 1)
+
+  if (healthPoints.voldy < 3) {
+    return topTier[Math.floor(Math.random() * topTier.length)]
+  }
+  else if (healthPoints.voldy < 6) {
+    return middleTier[Math.floor(Math.random() * middleTier.length)]
+  }
+  else {
+    return bottomTier[Math.floor(Math.random() * bottomTier.length)]
+  }
+}
+
 function castSpell() {
   let spells = getSpells()
   let unforgivables = ['Avada Kedavra', 'Crucio', 'Imperio']
   playerSpell = spells.find( spell => spell.rank == event.target.dataset.id )
-  voldySpell = spells[Math.floor(Math.random() * spells.length)]
-  console.log(playerSpell, voldySpell)
+  voldySpell = voldyCastSpell()
 
-  if (playerSpell === voldySpell) {
+  if (playerSpell.name === voldySpell.name) {
     return 'You and Voldy cast the same spell! No Health Points have been lost.'
   }
   else if (voldySpell.name === 'Avada Kedavra') {
@@ -62,7 +78,6 @@ function castSpell() {
   }
   else if (playerSpell.rank < voldySpell.rank) {
     healthPoints.player = setWinnerPoints('player')
-    // healthPoints.voldy -= playerSpell.damage
     healthPoints.voldy = setLoserPoints('voldy', playerSpell.damage)
     document.querySelector('#player-score').innerHTML = `<i class="heartbeat icon"></i> ${healthPoints.player}`
     document.querySelector('#voldy-score').innerHTML = `<i class="heartbeat icon"></i> ${healthPoints.voldy}`
@@ -70,7 +85,6 @@ function castSpell() {
   }
   else if (playerSpell.rank > voldySpell.rank) {
     healthPoints.voldy = setWinnerPoints('voldy')
-    // healthPoints.player -= voldySpell.damage
     healthPoints.player = setLoserPoints('player', voldySpell.damage)
     document.querySelector('#voldy-score').innerHTML = `<i class="heartbeat icon"></i> ${healthPoints.voldy}`
     document.querySelector('#player-score').innerHTML = `<i class="heartbeat icon"></i>
@@ -85,14 +99,12 @@ function playerCastUnforgivableResult(playerSpell, voldySpell) {
 
   if (playerSpell.rank < voldySpell.rank) {
     healthPoints.player = setWinnerPoints('player')
-    // healthPoints.voldy -= playerSpell.damage
     healthPoints.voldy = setLoserPoints('voldy', playerSpell.damage)
     document.querySelector('#player-score').innerHTML = `<i class="heartbeat icon"></i> ${healthPoints.player}`
     document.querySelector('#voldy-score').innerHTML = `<i class="heartbeat icon"></i> ${healthPoints.voldy}`
   }
   else {
     healthPoints.voldy = setWinnerPoints('voldy')
-    // healthPoints.player -= voldySpell.damage
     healthPoints.player = setLoserPoints('player', voldySpell.damage)
     document.querySelector('#voldy-score').innerHTML = `<i class="heartbeat icon"></i> ${healthPoints.voldy}`
     document.querySelector('#player-score').innerHTML = `<i class="heartbeat icon"></i> ${healthPoints.player}`
