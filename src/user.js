@@ -106,7 +106,7 @@ function castSpell() {
     healthPoints.voldy = setLoserPoints('voldy', playerSpell.damage)
     document.querySelector('#player-score').innerHTML = `<i class="heartbeat icon"></i> ${healthPoints.player}`
     document.querySelector('#voldy-score').innerHTML = `<i class="heartbeat icon"></i> ${healthPoints.voldy}`
-    return 'Nice one! You beat Voldy!'
+    return "Nice one! Your spell beat Voldy's!"
   }
   else if (playerSpell.rank > voldySpell.rank) {
     healthPoints.voldy = setWinnerPoints('voldy')

@@ -91,27 +91,27 @@ function alertGameStatus(message) {
   if (voldySpell.name === 'Avada Kedavra') {
     activeDuel.win = false
     setTimeout(function(){ alert('Game Over! Voldy cast the killing curse on you. RIP.') }, 1000)
-    endDuel()
+    setTimeout(endDuel, 1000)
   }
   else if (playerSpell.name === 'Avada Kedavra') {
     activeDuel.win = true
     setTimeout(function(){ alert('Game Over! Voldy is dead, but using the killing curse has compromised your soul.') }, 1000)
-    endDuel()
+    setTimeout(endDuel, 1000)
   }
   else if (darkMagicMeter >= 100) {
     activeDuel.win = false
     setTimeout(function(){ alert('Game Over! The Dark Magic Meter has reached 100%. The wizarding world has been overtaken by Dark forces all thanks to you.') }, 1000)
-    endDuel()
+    setTimeout(endDuel, 1000)
   }
   else if (healthPoints.player <= 0) {
     activeDuel.win = false
-    setTimeout(function(){ alert('Game Over! Voldy has beaten you. Sry.') }, 1000)
-    endDuel()
+    setTimeout(function(){ alert('Game Over! Voldy has won. Sorry.') }, 1000)
+    setTimeout(endDuel, 1000)
   }
   else if (healthPoints.voldy <= 0) {
     activeDuel.win = true
     setTimeout(function(){ alert('Game Over! You beat Voldy! Go celebrate with some butterbeer!') }, 1000)
-    endDuel()
+    setTimeout(endDuel, 1000)
   }
   else {
     setTimeout(function(){ alert(message) }, 1000)
