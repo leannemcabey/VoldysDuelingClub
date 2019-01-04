@@ -35,19 +35,44 @@ function findOrCreateUser(username) {
 }
 
 function voldyCastSpell() {
-  let allSpells = getSpells()
   let topTier = getSpells().filter( spell => spell.damage > 2)
   let middleTier = getSpells().filter( spell => spell.damage === 2)
   let bottomTier = getSpells().filter( spell => spell.damage === 1)
 
+  let chance = Math.ceil(Math.random() * 100)
+
   if (healthPoints.voldy < 3) {
-    return topTier[Math.floor(Math.random() * topTier.length)]
+    if (chance < 5) {
+      return bottomTier[Math.floor(Math.random() * bottomTier.length)]
+    }
+    else if (chance < 10) {
+      return middleTier[Math.floor(Math.random() * middleTier.length)]
+    }
+    else {
+      return topTier[Math.floor(Math.random() * topTier.length)]
+    }
   }
   else if (healthPoints.voldy < 6) {
-    return middleTier[Math.floor(Math.random() * middleTier.length)]
+    if (chance < 30) {
+      return bottomTier[Math.floor(Math.random() * bottomTier.length)]
+    }
+    else if (chance < 80) {
+      return middleTier[Math.floor(Math.random() * middleTier.length)]
+    }
+    else {
+      return topTier[Math.floor(Math.random() * topTier.length)]
+    }
   }
   else {
-    return bottomTier[Math.floor(Math.random() * bottomTier.length)]
+    if (chance < 45) {
+      return bottomTier[Math.floor(Math.random() * bottomTier.length)]
+    }
+    else if (chance < 90) {
+      return middleTier[Math.floor(Math.random() * middleTier.length)]
+    }
+    else {
+      return topTier[Math.floor(Math.random() * topTier.length)]
+    }
   }
 }
 
@@ -131,6 +156,3 @@ function compareWins(a,b) {
     return 1
   return 0
 }
-
-// change threshhold of dark magic meter to be easier to max out
-// add spell descriptions to buttons
