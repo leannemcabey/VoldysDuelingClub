@@ -112,7 +112,7 @@ function alertGameStatus(message) {
     endDuel()
   }
   else {
-    setTimeout(alert(message), 3000)
+    setTimeout(function(){ alert(message) }, 1000)
   }
 }
 
