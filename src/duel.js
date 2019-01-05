@@ -24,7 +24,7 @@ function startDuel(userId) {
           <button class="ui inverted violet button spells" id="spell-${spell.rank}" data-action='spell-button' data-id='${spell.rank}'> ${spell.name}
             <i id="info" class="info circle icon" data-id='${spell.rank}'></i>
           </button>
-          <p class='spell-par' id='spell-${spell.rank}'><p>
+          <p class='spell-par' id='spellinfo-${spell.rank}'><p>
         </div>
       `}).join('')
     mainDiv.innerHTML = `

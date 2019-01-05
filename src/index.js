@@ -80,7 +80,8 @@ document.addEventListener('click', event => {
   else if (event.target.id === 'info') {
     clicked = !clicked
     let targetedSpell = getSpells().find( spell => spell.rank == event.target.dataset.id )
-    let targetedPTag = document.querySelector(`#spell-${event.target.dataset.id}`)
+    let targetedPTag = document.querySelector(`#spellinfo-${event.target.dataset.id}`)
+    console.log(targetedPTag)
 
     if (clicked) {
       targetedPTag.innerHTML += `${targetedSpell.description}`
