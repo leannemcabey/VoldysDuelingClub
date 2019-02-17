@@ -10,7 +10,7 @@ This application utilizes a Rails backend API, which can be found [here](https:/
 
 ```bash
 npm install
-npm start
+open index.html
 ```
 
 ## Contributing
