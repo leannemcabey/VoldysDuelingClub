@@ -2,6 +2,8 @@
 
 Voldy's Dueling Club is a game to partake in a wizarding duel against Lord Voldemort. Witches, wizards, squibs, and muggles are welcome.
 
+This project was created for the JavaScript module of the Flatiron School's Full-Stack Software Engineering Immersive. It was created after completing two weeks of JavaScript material.
+
 This application utilizes a Rails backend API, which can be found [here](https://github.com/leannemcabey/VoldysDuelingClubAPI).
 
 ## Visuals
