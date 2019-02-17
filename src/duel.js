@@ -21,7 +21,7 @@ function startDuel(userId) {
     const spellNames = getSpells().map( spell => {
       return `
         <div>
-          <button class="ui inverted violet button spells" id="spell-${spell.rank}" data-action='spell-button' data-id='${spell.rank}'> ${spell.name}
+          <button class="ui grey button spells" id="spell-${spell.rank}" data-action='spell-button' data-id='${spell.rank}'> ${spell.name}
             <i id="info" class="info circle icon" data-id='${spell.rank}'></i>
           </button>
           <p class='spell-par' id='spellinfo-${spell.rank}'><p>
@@ -62,9 +62,9 @@ function startDuel(userId) {
         </div>
       </div>
     `
-    document.querySelector('#spell-1').setAttribute("class", "ui inverted red button spells")
-    document.querySelector('#spell-2').setAttribute("class", "ui inverted red button spells")
-    document.querySelector('#spell-3').setAttribute("class", "ui inverted red button spells")
+    document.querySelector('#spell-1').setAttribute("class", "ui green button spells")
+    document.querySelector('#spell-2').setAttribute("class", "ui green button spells")
+    document.querySelector('#spell-3').setAttribute("class", "ui green button spells")
   })
 }
 

@@ -45,7 +45,7 @@
 }
 
 .container {
-  opacity: .7;
+  /* opacity: .7; */
   text-align: center;
 }
 
@@ -54,9 +54,10 @@
 } */
 
 #leaderboard {
-  color: black;
-  background-color: #b2a4f2;
-  opacity: .3;
+  color: white;
+  /* background-color: #b2a4f2; */
+  background-color: grey;
+  /* opacity: .3; */
 }
 
 ul {
@@ -64,7 +65,8 @@ ul {
 }
 
 .spell-par {
-  color: #b2a4f2;
+  /* color: #b2a4f2; */
+  color: white;
   text-align: center;
   background-color: black;
 }
@@ -81,11 +83,12 @@ ul {
 }
 
 #dark-magic-meter {
-  color: #960106;
+  /* color: #960106; */
+  color: green;
 }
 
 #duel-round-message {
-  font-family: 'Homemade Apple', cursive;
+  /* font-family: 'Homemade Apple', cursive; */
   color: white;
   align-content: center;
   text-align: center;
@@ -105,7 +108,8 @@ ul {
 }
 
 #player-name {
-  color: #b2a4f2;
+  /* color: #b2a4f2; */
+  color: white;
   text-align: center;
 }
 
@@ -115,7 +119,8 @@ ul {
 }
 
 #voldy-name {
-  color: #b2a4f2;
+  /* color: #b2a4f2; */
+  color: white;
   text-align: center;
 }
 
@@ -136,6 +141,6 @@ ul {
   margin: auto;
   text-align: center;
   padding: 110px 0;
-  font-family: 'Homemade Apple', cursive;
+  /* font-family: 'Homemade Apple', cursive; */
   font-size: 20px;
 }
