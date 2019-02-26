@@ -1,9 +1,9 @@
 let playerSpell
 let voldySpell
 const unforgivables = ['Avada Kedavra', 'Crucio', 'Imperio']
-const topTier = getSpells().filter( spell => spell.damage > 2) // AKA The Unforgivable Curses
-const middleTier = getSpells().filter( spell => spell.damage === 2)
-const bottomTier = getSpells().filter( spell => spell.damage === 1)
+const topTier = getSpells().filter(spell => spell.damage > 2) // AKA The Unforgivable Curses
+const middleTier = getSpells().filter(spell => spell.damage === 2)
+const bottomTier = getSpells().filter(spell => spell.damage === 1)
 
 ///////////////////////////////////////////////////////////////////////////////
 // VOLDY'S SPELL MECHANICS

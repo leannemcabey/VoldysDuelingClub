@@ -19,7 +19,7 @@ function renderLeaderboard() {
   .then(result => result.json())
   .then(parsedResult => {
     let sortedResult = parsedResult.sort(compareWins).reverse()
-    leaderboard = sortedResult.map( user => {
+    leaderboard = sortedResult.map(user => {
       return `<li>${getWins(user)} <i class="user outline icon"></i>${user.username}</li>`
     }).join('')
     return leaderboard

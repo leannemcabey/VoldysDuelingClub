@@ -10,13 +10,13 @@ function showOrHideSignoutButton() {
 
 function renderWelcomeAndUserSignInForm() {
   mainDiv.innerHTML = `
-    <div id="page-1-container" class="ui raised very padded text container segment">
-      <p id='page-1-subheader' class="ui header">Welcome to Voldy's Dueling Club</p>
+    <div id='page-1-container' class='ui raised very padded text container segment'>
+      <p id='page-1-subheader' class='ui header'>Welcome to Voldy's Dueling Club</p>
       <p>If you think you have what it takes to duel with Voldy, enter your username below.</p>
-      <form class="ui form">
-        <input type=text id='username' class="field"></input>
+      <form class='ui form'>
+        <input type=text id='username' class='field'></input>
         <br></br>
-        <input type=submit class="ui positive basic button"></input>
+        <input type=submit class='ui positive basic button'></input>
       </form>
     </div>
   `
@@ -30,7 +30,7 @@ function signIn() {
 
 function renderRulesPage() {
   return `
-    <div class="ui raised very padded text container segment">
+    <div class='ui raised very padded text container segment'>
       <h2> As you wish, ${activeUser.username}... </h2>
       <h4>
         <p>
@@ -47,7 +47,7 @@ function renderRulesPage() {
           will your opponent. Have fun!
         </p>
       </h4>
-      <button class="ui positive basic button" data-action='duel-button' data-id='${activeUser.id}'>Begin Duel</button>
+      <button class='ui positive basic button' data-action='duel-button' data-id='${activeUser.id}'>Begin Duel</button>
     </div>
   `
 }

@@ -24,11 +24,11 @@ function getSpells() {
 }
 
 function renderSpellList() {
-  return getSpells().map( spell => {
+  return getSpells().map(spell => {
     return `
       <div>
-        <button class="ui grey button spells" id="spell-${spell.rank}" data-action='spell-button' data-id='${spell.rank}'> ${spell.name}
-          <i id="info" class="info circle icon" data-id='${spell.rank}'></i>
+        <button class='ui grey button spells' id='spell-${spell.rank}' data-action='spell-button' data-id='${spell.rank}'> ${spell.name}
+          <i id='info' class='info circle icon' data-id='${spell.rank}'></i>
         </button>
         <p class='spell-par' id='spellinfo-${spell.rank}'><p>
       </div>
@@ -46,31 +46,29 @@ function renderDuelPage(duelId, userId) {
       <div id='duel-round-message'>
         Choose a spell below.
       </div>
-      <div class="ui horizontal divider">
-        <h4 id='dark-magic-meter' class="ui medium header"> Dark Magic Meter<i class="thermometer empty icon"></i>${darkMagicMeter}% </h4>
+      <div class='ui horizontal divider'>
+        <h4 id='dark-magic-meter' class='ui medium header'> Dark Magic Meter<i class='thermometer empty icon'></i>${darkMagicMeter}%</h4>
       </div>
       <div id='dimmer-div'>
         <div class='ui grid'>
-          <div id='leaderboard' class="four wide column ui medium header">
+          <div id='leaderboard' class='four wide column ui medium header'>
             <p>Leaderboard:</p>
             <ul>
               ${leaderboard}
             <ul>
           </div>
-          <div id='spells' class="four wide column">
+          <div id='spells' class='four wide column'>
             ${renderSpellList()}
           </div>
-          <div id='player' class="four wide column" data-id='${userId}'>
-            <h4 id='player-score' class="ui large header"> <i class="heartbeat icon"></i> ${healthPoints.player} </h4>
-            <h3 class="ui large header" id='player-name'> ${activeUser.username} </h3>
-            <div id='player-spell' class="image-blurred-edge">
-            </div>
+          <div id='player' class='four wide column' data-id='${userId}'>
+            <h4 id='player-score' class='ui large header'><i class='heartbeat icon'></i> ${healthPoints.player}</h4>
+            <h3 class='ui large header' id='player-name'>${activeUser.username}</h3>
+            <div id='player-spell' class='image-blurred-edge'></div>
           </div>
-          <div id='voldy' class="four wide column">
-            <h4 id='voldy-score' class="ui large header"> <i class="heartbeat icon"></i> ${healthPoints.voldy} </h4>
-            <h3 class="ui large header" id='voldy-name'> Voldy </h3>
-            <div id='voldy-spell' class="image-blurred-edge">
-            </div>
+          <div id='voldy' class='four wide column'>
+            <h4 id='voldy-score' class='ui large header'><i class='heartbeat icon'></i> ${healthPoints.voldy}</h4>
+            <h3 class='ui large header' id='voldy-name'>Voldy</h3>
+            <div id='voldy-spell' class='image-blurred-edge'></div>
           </div>
         </div>
       </div>
@@ -79,7 +77,7 @@ function renderDuelPage(duelId, userId) {
 }
 
 function makeSpellButtonGreen(elementId) {
-  document.querySelector(elementId).setAttribute("class", "ui green button spells")
+  document.querySelector(elementId).setAttribute('class', 'ui green button spells')
 }
 
 function startDuel(userId) {
@@ -106,32 +104,32 @@ function startDuel(userId) {
 function chooseMeterIcon() {
   let meterIcon
   if (darkMagicMeter === 100) {
-    meterIcon = `<i class="thermometer full icon"></i>`
+    meterIcon = `<i class='thermometer full icon'></i>`
   }
   else if (darkMagicMeter === 50) {
-    meterIcon = `<i class="thermometer half icon"></i>`
+    meterIcon = `<i class='thermometer half icon'></i>`
   }
   else {
-    meterIcon = `<i class="thermometer empty icon"></i>`
+    meterIcon = `<i class='thermometer empty icon'></i>`
   }
   return meterIcon
 }
 
 function renderDuelOutcome() {
   return `
-    <p id='outcome-title'><i class="magic icon"></i> Final Duel Outcome:</p>
-    </p>${activeUser.username} <i class="heartbeat icon"></i> ${healthPoints.player}</p>
-    <p>Voldy <i class="heartbeat icon"></i> ${healthPoints.voldy}</p>
+    <p id='outcome-title'><i class='magic icon'></i>Final Duel Outcome:</p>
+    <p>${activeUser.username} <i class='heartbeat icon'></i> ${healthPoints.player}</p>
+    <p>Voldy <i class='heartbeat icon'></i> ${healthPoints.voldy}</p>
     <p>Dark Magic Meter${chooseMeterIcon()}${darkMagicMeter}%</p>
-    <button class="ui positive basic button" data-action='duel-button' data-id=${activeUser.id}>Start a New Duel </button>
+    <button class='ui positive basic button' data-action='duel-button' data-id=${activeUser.id}>Start a New Duel</button>
   `
 }
 
 function clearPreviousDuel() {
   setStartingDuelStats()
-  document.querySelector('#player-score').innerHTML = `<i class="heartbeat icon"></i> ${healthPoints.player}`
-  document.querySelector('#voldy-score').innerHTML = `<i class="heartbeat icon"></i> ${healthPoints.voldy}`
-  document.querySelector('#dark-magic-meter').innerHTML = `Dark Magic Meter<i class="thermometer empty icon"></i>${darkMagicMeter}%`
+  document.querySelector('#player-score').innerHTML = `<i class='heartbeat icon'></i> ${healthPoints.player}`
+  document.querySelector('#voldy-score').innerHTML = `<i class='heartbeat icon'></i> ${healthPoints.voldy}`
+  document.querySelector('#dark-magic-meter').innerHTML = `Dark Magic Meter<i class='thermometer empty icon'></i>${darkMagicMeter}%`
 }
 
 function patchDuelOutcome() {
