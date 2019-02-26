@@ -21,13 +21,13 @@ function randomBottomTierSpell() {
 }
 
 function castDangerZoneSpell(chance) {
-  /* When Voldy's HP is lower than 3, there is a ~5% chance he will cast a bottom tier spell,
-  ~5% chance he will cast a middle tier spell, and a ~90% chance he will cast a top tier spell.
+  /* When Voldy's HP is lower than 3, there is a ~10% chance he will cast a bottom tier spell,
+  ~10% chance he will cast a middle tier spell, and a ~80% chance he will cast a top tier spell.
   He's not messin' around. */
-  if (chance < 5) {
+  if (chance < 10) {
     return randomBottomTierSpell()
   }
-  else if (chance < 10) {
+  else if (chance < 20) {
     return randomMiddleTierSpell()
   }
   else {
