@@ -1,13 +1,13 @@
 * {
-    box-sizing: border-box
+  box-sizing: border-box
 }
 
 #body {
-    background-image: url("../images/wand.jpeg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
+  background-image: url("../images/wand.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
   }
 
 #wrapper-div {
@@ -15,49 +15,28 @@
   padding-right: 30px;
 }
 
-.dimmer {
-  -webkit-filter: blur(5px);
-  -moz-filter: blur(5px);
-  -o-filter: blur(5px);
-  -ms-filter: blur(5px);
-  filter: blur(5px);
-  width: 100%;
-  height: 100%;
-  background-color: black;
-}
-
 #signout {
   float: right;
-  /* position: fixed; */
 }
 
 #main-header {
   color: white;
   display: inline;
-  /* position: fixed; */
 }
 
 #snake-img {
   height: 4em;
   width: 3em;
   display: inline;
-  /* position: fixed; */
 }
 
 .container {
-  /* opacity: .7; */
   text-align: center;
 }
 
-/* .segment {
-  opacity: .7;
-} */
-
 #leaderboard {
   color: white;
-  /* background-color: #b2a4f2; */
   background-color: grey;
-  /* opacity: .3; */
 }
 
 ul {
@@ -65,7 +44,6 @@ ul {
 }
 
 .spell-par {
-  /* color: #b2a4f2; */
   color: white;
   text-align: center;
   background-color: black;
@@ -83,12 +61,10 @@ ul {
 }
 
 #dark-magic-meter {
-  /* color: #960106; */
   color: green;
 }
 
 #duel-round-message {
-  /* font-family: 'Homemade Apple', cursive; */
   color: white;
   align-content: center;
   text-align: center;
@@ -108,7 +84,6 @@ ul {
 }
 
 #player-name {
-  /* color: #b2a4f2; */
   color: white;
   text-align: center;
 }
@@ -119,7 +94,6 @@ ul {
 }
 
 #voldy-name {
-  /* color: #b2a4f2; */
   color: white;
   text-align: center;
 }
@@ -129,18 +103,28 @@ ul {
 }
 
 .image-blurred-edge {
-    background-image: url("../images/purpleflame.gif");
-    width: 272px;
-    height: 350px;
-    box-shadow: 50px 50px 50px 50px black;
-    color: white;
-    margin: auto;
+  background-image: url("../images/purpleflame.gif");
+  width: 272px;
+  height: 350px;
+  box-shadow: 50px 50px 50px 50px black;
+  color: white;
+  margin: auto;
 }
 
 .cast-spell-name {
   margin: auto;
   text-align: center;
   padding: 110px 0;
-  /* font-family: 'Homemade Apple', cursive; */
   font-size: 20px;
+}
+
+.dimmer {
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+  width: 100%;
+  height: 100%;
+  background-color: black;
 }

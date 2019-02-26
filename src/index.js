@@ -1,19 +1,31 @@
 const mainDiv = document.querySelector('#main_div')
+const header = document.querySelector('#header')
+
+///////////////////////////////////////////////////////////////////////////////
+
+function showOrHideSignoutButton() {
+  let buttonStyle = document.querySelector('#signout').style
+  buttonStyle.display === 'none' ? buttonStyle.display = 'inline' : buttonStyle.display = 'none'
+}
 
 function renderWelcomeAndUserSignInForm() {
   mainDiv.innerHTML = `
     <div id="page-1-container" class="ui raised very padded text container segment">
-      <p id='page-1-subheader' class="ui header"> Welcome to Voldy's Dueling Club</p>
-      <p> If you think you have what it takes to duel with Voldy, enter your username below. </p>
+      <p id='page-1-subheader' class="ui header">Welcome to Voldy's Dueling Club</p>
+      <p>If you think you have what it takes to duel with Voldy, enter your username below.</p>
       <form class="ui form">
-        <input type=text id='username' class="field"> </input>
-        <br>
-        <br>
-        <input type=submit class="ui positive basic button"> </input>
+        <input type=text id='username' class="field"></input>
+        <br></br>
+        <input type=submit class="ui positive basic button"></input>
       </form>
     </div>
   `
-  document.querySelector('#signout').style.display = 'none'
+  showOrHideSignoutButton()
+}
+
+function signIn() {
+  showOrHideSignoutButton()
+  mainDiv.innerHTML = renderRulesPage()
 }
 
 function renderRulesPage() {
@@ -35,28 +47,16 @@ function renderRulesPage() {
           will your opponent. Have fun!
         </p>
       </h4>
-      <button class="ui positive basic button" data-action='duel-button' data-id='${activeUser.id}'> Begin Duel </button>
+      <button class="ui positive basic button" data-action='duel-button' data-id='${activeUser.id}'>Begin Duel</button>
     </div>
   `
 }
 
-function renderLeaderboard() {
-  fetch('http://localhost:3000/api/v1/users')
-  .then( result => result.json() )
-  .then( parsedResult => {
-    let sortedResult = parsedResult.sort(compareWins).reverse()
-    // let topFive = sortedResult.slice(0,5)
-    wins = sortedResult.map( user => {
-      return `<li> <i class="user outline icon"></i> ${user.username} -- ${getWins(user)} Wins </li>`
-    }).join('')
-    return wins
-  })
-}
+///////////////////////////////////////////////////////////////////////////////
 
 renderWelcomeAndUserSignInForm()
-renderLeaderboard()
 
-let clicked = false
+///////////////////////////////////////////////////////////////////////////////
 
 document.addEventListener('submit', event => {
   event.preventDefault()
@@ -64,29 +64,15 @@ document.addEventListener('submit', event => {
   findOrCreateUser(username)
 })
 
-document.addEventListener('click', event => {
-  if (event.target.dataset.action === 'duel-button') {
-    startDuel(event.target.dataset.id)
-  }
-  else if (event.target.dataset.action === 'spell-button') {
-    returnedMessage = castSpell()
-    alertGameStatus(returnedMessage)
-    showSpell()
-  }
-  else if (event.target.id === 'signout') {
+header.addEventListener('click', event => {
+  if (event.target.id === 'signout') {
     activeUser = ''
     renderWelcomeAndUserSignInForm()
   }
-  else if (event.target.id === 'info') {
-    clicked = !clicked
-    let targetedSpell = getSpells().find( spell => spell.rank == event.target.dataset.id )
-    let targetedPTag = document.querySelector(`#spellinfo-${event.target.dataset.id}`)
+})
 
-    if (clicked) {
-      targetedPTag.innerHTML += `${targetedSpell.description}`
-    }
-    else {
-      targetedPTag.innerHTML = ''
-    }
+document.addEventListener('click', event => {
+  if (event.target.dataset.action === 'duel-button') {
+    startDuel(event.target.dataset.id)
   }
 })
